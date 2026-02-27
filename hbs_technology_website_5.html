@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBS Technology - Scientific Equipment & Laboratory Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0066CC;
+            --secondary-color: #00B894;
+            --accent-color: #00B894;
+            --dark-bg: #0A1128;
+            --light-bg: #F8F9FA;
+            --text-dark: #1A1A1A;
+            --text-light: #E8E8E8;
+            --border-color: #D4E4E8;
+            --gradient-1: linear-gradient(135deg, #00B894 0%, #0066CC 100%);
+            --gradient-2: linear-gradient(135deg, #00B894 0%, #FBFEF9 100%);
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--light-bg);
+            overflow-x: hidden;
+        }
+
+        [dir="rtl"] {
+            direction: rtl;
+            text-align: right;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-30px) translateX(30px); }
+            50% { transform: translateY(-60px) translateX(-30px); }
+            75% { transform: translateY(-30px) translateX(30px); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo img {
+            height: 75px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .language-selector {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--primary-color);
+            background: white;
+            color: var(--primary-color);
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active,
+        .lang-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 100px;
+            min-height: 90vh;
+            background: linear-gradient(135deg, #00B894 0%, #0066CC 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 10s ease infinite;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="1200" height="800" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: white;
+            max-width: 700px;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: white;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.8s ease 0.6s backwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Sections */
+        .section {
+            max-width: 1400px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease 0.2s backwards;
+        }
+
+        /* Partners Section */
+        .partners-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .partner-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .partner-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            opacity: 0.05;
+            transition: left 0.3s ease;
+        }
+
+        .partner-card:hover::before {
+            left: 0;
+        }
+
+        .partner-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            border-color: var(--secondary-color);
+        }
+
+        .partner-logo-container {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 3rem;
+        }
+
+        .partner-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
+
+        .partner-card:hover .partner-name {
+            color: var(--secondary-color);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 3rem;
+            border-radius: 16px;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+
+        /* Products Section */
+        .sectors-products {
+            background: white;
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .sector-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .sector-tab {
+            padding: 1rem 2rem;
+            background: white;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            cursor: pointer;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sector-tab span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .sector-tab.active,
+        .sector-tab:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 102, 204, 0.3);
+        }
+
+        .sector-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .sector-content.active {
+            display: block;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background: white;
+            padding: 0;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-color: var(--secondary-color);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 40%, rgba(255,255,255,0.8) 100%);
+        }
+
+        .product-image svg,
+        .product-image .icon {
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-details {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+            min-height: 50px;
+        }
+
+        .product-brand {
+            color: var(--secondary-color);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .product-ref {
+            color: #888;
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            background: #f5f5f5;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* About Section */
+        .about-section {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            margin-top: 3rem;
+        }
+
+        .about-content {
+            animation: fadeInLeft 0.8s ease;
+        }
+
+        .about-content h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .about-content p {
+            color: #555;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .value-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .value-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            background: var(--gradient-2);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #0066CC 0%, #00B894 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .contact-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .contact-section h2 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-section p {
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 2rem;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .contact-item p,
+        .contact-item a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            color: #bbb;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.2rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .logo img {
+                height: 55px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sector-tabs {
+                flex-direction: column;
+            }
+
+            .sector-tab {
+                width: 100%;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated particles background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="data:image/png;base64,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nMABQAAAAEOYAczmKCKAAACKgHM5gBzUAA8QAAEOaoAAAoASAAAAigAAAAAACKAAAAAAAAAigAAABIAAIKAAAeYAAACKgAoAeYAAAAAIKAAAAAAAACKAAAB5gAAAigIoAHmAASAAgAoCKAAAAACAApAAAAAACACgAAAAAAAIAoAAAcwAAAEUAAAPMAAAEVAFRQAAAAAAJAAAAAAEUARQAAA3AAABABQAAAA3ABAVBQAAANwAABAFEUAAAAAEAABRFAAAAAQAFRQAADyAAAAQAUAAAA3ABAAFAAADcA8gARUAFRQAAAAAQBUUAAAAAABAAVFAAADc3ABAURYACAAAANwAEAUAAAPIACCQAAAAAAABAUQAUAAAEVAAAAAUAAAEAADzAFRQDfkABKAKgSAAAoAAgKIAAAKigAACACoAbAAKAAICiAAAAEAoAAICoAAACooAACAAB5gAAoAAICiABIAKigAAAgAHMAABQAAAQAAAFRQAAAQFQPMAAFAAAABAAUAAAAAEBQAAAAAEAAAAFAAABAAAAAAhQRQAQAAPIAOYAKAAAgAAHkAHkoAAAIAB5AAAAoAACAAAACgigACAAAB5AAoAAAIAAAB5AAoACAqAAAAACgAIqAB5AAAAoAigCAAB5AKigigACAEgAHkAKAAACL4oCoACooHgEgAACLIAAAAAAAgAqKABzOYAACKAgKCKAAbHMAABFARQAA5gAAAniACggoAHMAAAEAAUAAAABFAEAAUAAAAARUABQAAA5gAAIAAoAAAAAIqAAoIKbSAHMAABBUAUAA5gAAAAICgihzADmcwAAEVAAUADmABIEgQAAAAABzAAAAARZAAAAAAAAAAAAAAAAAAAANwAAEUAAAAAAAABBQAAAAAAAAARQAAANwAAEUAAAAAAAAAAgAAAAAAAAEUAAAAAAARQAAAAAAARQAAAAAAAABFAAAAJAAAAAAAA3AAAAAAAAAAAAAkCQAAPEACQABFAAAAA3NwA3QAVABQANwANxAFEAAUAAAADc3QBUAFAAAANxAVAABQAADcANzdAFQAFSFAAANwABAAUAAA3ADcAAQAVFAAAAABAVABQAAANzdAFQAAAUAAADcQAABQAAADcQF3EAAUEUANzcANwJAQAFAAAAAAEBUAFAAAARQEBQBFAAAQAAAAAFAAEAAA5gAKAAACAAABzABQAAQAAAABQAAAQAAAAAUAAABOaoAcwA5rCKAcg2AABBUAABQAAAQAA5gCoAKAAIAHMAOYACooAIAAAcwAABRFABADmAHM5gACgAAIAG8nM8gDmCgAAAgLKAAAAsEAAAHgABIeJIAAAAAiggqACgAACKAgAAKAACKACKgAKCCgAACKAgqAHkKCKAAACKgAAAKCKAAABAAh5LyARQAAAA3AN4NwCZRQAAAABFAQFBBQAABFAQADyBQRQAAARUAAAFAAAEVAVAAPIUEUAAAAQAADyBQAAAAEUBBQEUAFQA8AAJRUBQAAAAAAAAAAAAARUAFAAAAAAAEFARQAAAAABABQAAAAAAEUARYAAADyAABAURQAAAAAJARQEUAAAAAAAEFBFADyPI3AAAAQAUBFAAAAAEFARQAAAAAABAUAAAAAAEVFBBQAAAAAAEUAAAAAAJ6AAAAAT1DxAAAAAAAAAAABAFAAAAA3ABAVABQAAOQAeQACbSCiKAAAABuAAIAKAAAAAAICoAKAAByAAARUAUIAAAAABAVABQAAAAAAQBUUAAAAAAARQAADcAA8gAEBQAAAAAAAEFAAAA3EBuAkBAUIAAAAABUAPAAPAAAAAJACAAAAAAAAEAFRQAAAABAAABUUAAARQQAAAFAAAAQAAAFRQAACRAVAAAAFAAAAQFQAAAUAAAEAAABRFAgAAEAAAABQAAABAAABUUAAAEBUABUAUAAEBRAAAAFAAAABFQBUUAgAAAAEBQABAFAAAAAAAAAAAARUAUAEUABAUAEAAUAAAAAEVAAUEFAAAEAAFBAUARQAAQUBAUBBQAQFRUAAAABUUAABBUAAAFARQAABFQABQRUUAAAEAAAFAEUAAAEAAUEUAAARQBBUAVFAAABAUAEFgAA2AAAJAAEBQARQAAAAAAAAAABFAAAAAAAAQBQARQAAAAAABFAAAAAAEAFAAARQABAUAARQAAAAAAQVAUAAAAAAAAEBQAAAAARRAUAAAAAA8gARQEUAAAAAAQBQBFAAAAEBQNgBFAAAAAAAAAAAAAAAAAA2AAAAAAAAB/9k=" alt="HBS Technology Logo" id="logo-img">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#accueil" data-translate="nav_home">Accueil</a></li>
+                <li><a href="#apropos" data-translate="nav_about">À Propos</a></li>
+                <li><a href="#produits" data-translate="nav_products">Produits</a></li>
+                <li><a href="#partenaires" data-translate="nav_partners">Partenaires</a></li>
+                <li><a href="#contact" data-translate="nav_contact">Contact</a></li>
+                <li class="language-selector">
+                    <button class="lang-btn active" onclick="changeLanguage('fr')">FR</button>
+                    <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+                    <button class="lang-btn" onclick="changeLanguage('ar')">AR</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="accueil" class="hero">
+        <div class="hero-content">
+            <h1 data-translate="hero_title">HBS Technology</h1>
+            <p class="hero-tagline" data-translate="hero_tagline">Votre partenaire de confiance en équipements et infrastructures de laboratoire</p>
+            <p class="hero-description" data-translate="hero_description">
+                Équipements scientifiques de laboratoire et solutions complètes d'infrastructure 
+                de laboratoire en Tunisie et en Libye. Nous accompagnons les laboratoires, 
+                industries et centres de recherche avec des solutions fiables, performantes 
+                et conformes aux normes internationales.
+            </p>
+            <a href="#contact" class="cta-button" data-translate="cta_button">Contactez-nous pour un devis</a>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partenaires" class="partners-section">
+        <div class="section">
+            <h2 class="section-title" data-translate="partners_title">Nos Partenaires</h2>
+            <p class="section-subtitle" data-translate="partners_subtitle">Nous travaillons avec les leaders mondiaux de l'instrumentation scientifique</p>
+            
+            <div class="partners-grid" id="partners-grid"></div>
+        </div>
+    </section>
+
+    <!-- Products by Sector -->
+    <section id="produits" class="sectors-products">
+        <div class="section">
+            <h2 class="section-title" data-translate="products_title">Produits par Secteur</h2>
+            <p class="section-subtitle" data-translate="products_subtitle">Découvrez notre gamme complète d'équipements scientifiques</p>
+            
+            <div class="sector-tabs">
+                <button class="sector-tab active" onclick="showSector('agroalimentaire')"><span data-translate="sector_agro">Agroalimentaire</span></button>
+                <button class="sector-tab" onclick="showSector('agriculture')"><span data-translate="sector_agri">Agriculture</span></button>
+                <button class="sector-tab" onclick="showSector('eau')"><span data-translate="sector_water">Eau et environnement</span></button>
+                <button class="sector-tab" onclick="showSector('pharma')"><span data-translate="sector_pharma">Pharmaceutique</span></button>
+                <button class="sector-tab" onclick="showSector('chimie')"><span data-translate="sector_chemical">Industrie Chimique</span></button>
+            </div>
+            
+            <div id="agroalimentaire" class="sector-content active">
+                <div class="products-grid" id="products-agro"></div>
+            </div>
+            
+            <div id="agriculture" class="sector-content">
+                <div class="products-grid" id="products-agri"></div>
+            </div>
+            
+            <div id="eau" class="sector-content">
+                <div class="products-grid" id="products-eau"></div>
+            </div>
+
+            <div id="pharma" class="sector-content">
+                <div class="products-grid" id="products-pharma"></div>
+            </div>
+
+            <div id="chimie" class="sector-content">
+                <div class="products-grid" id="products-chimie"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="apropos" class="about-section">
+        <div class="section">
+            <h2 class="section-title" data-translate="about_title">À Propos de HBS Technology</h2>
+            
+            <div class="about-grid">
+                <div class="about-content">
+                    <h3 data-translate="about_mission">Notre Mission</h3>
+                    <p data-translate="about_mission_text">Fournir des solutions de laboratoire fiables, innovantes et durables à nos clients en Tunisie et en Libye.</p>
+                    
+                    <h3 data-translate="about_vision">Notre Vision</h3>
+                    <p data-translate="about_vision_text">Devenir un acteur de référence dans le domaine des laboratoires scientifiques en Afrique du Nord.</p>
+                    
+                    <h3 data-translate="about_values">Nos Valeurs</h3>
+                    <div class="values-grid">
+                        <div class="value-item" data-translate="value_quality">Qualité</div>
+                        <div class="value-item" data-translate="value_reliability">Fiabilité</div>
+                        <div class="value-item" data-translate="value_innovation">Innovation</div>
+                        <div class="value-item" data-translate="value_satisfaction">Satisfaction client</div>
+                    </div>
+                </div>
+                
+                <div class="about-content">
+                    <h3 data-translate="about_who">Qui sommes-nous ?</h3>
+                    <p data-translate="about_who_text">HBS Technology est une entreprise spécialisée dans la distribution d'équipements de laboratoire et la conception d'infrastructures scientifiques adaptées aux besoins des professionnels en Tunisie et en Libye.</p>
+                    <p data-translate="about_commitment">Nous nous engageons à fournir des produits de haute qualité et un service client exceptionnel pour accompagner le développement scientifique et industriel de nos régions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="contact-container">
+            <h2 data-translate="contact_title">Contactez-nous</h2>
+            <p data-translate="contact_subtitle">Nos experts sont à votre écoute pour vos projets de laboratoires en Tunisie et en Libye</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h3 data-translate="contact_phone">📞 Téléphone</h3>
+                    <p><a href="tel:+21628129149">+216 28 129 149</a></p>
+                </div>
+                
+                <div class="contact-item">
+                    <h3 data-translate="contact_email">✉️ Email</h3>
+                    <p><a href="mailto:contact@hbs-technology.com">contact@hbs-technology.com</a></p>
+                </div>
+                
+                <div class="contact-item">
+                    <h3 data-translate="contact_address">📍 Adresse</h3>
+                    <p>Rue de l'Arabie Saoudite<br>Tunis - 1002<br>Tunisie</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>HBS Technology</h3>
+                <p data-translate="footer_tagline">Votre partenaire de confiance en équipements et infrastructures de laboratoire en Tunisie et en Libye.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3 data-translate="footer_quick_links">Liens rapides</h3>
+                <ul>
+                    <li><a href="#accueil" data-translate="nav_home">Accueil</a></li>
+                    <li><a href="#apropos" data-translate="nav_about">À Propos</a></li>
+                    <li><a href="#produits" data-translate="nav_products">Produits</a></li>
+                    <li><a href="#partenaires" data-translate="nav_partners">Partenaires</a></li>
+                    <li><a href="#contact" data-translate="nav_contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 data-translate="footer_sectors">Secteurs</h3>
+                <ul>
+                    <li data-translate="sector_agro">Agroalimentaire</li>
+                    <li data-translate="sector_agri">Agriculture</li>
+                    <li data-translate="sector_water">Eau et environnement</li>
+                    <li data-translate="sector_pharma">Pharmaceutique</li>
+                    <li data-translate="sector_chemical">Industrie Chimique</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 data-translate="footer_contact">Contact</h3>
+                <p>Email: <a href="mailto:contact@hbs-technology.com">contact@hbs-technology.com</a></p>
+                <p>Tél: <a href="tel:+21628129149">+216 28 129 149</a></p>
+                <p>Tunis, Tunisie</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 HBS Technology. <span data-translate="footer_rights">Tous droits réservés</span>.</p>
+        </div>
+    </footer>
+
+    <!-- Modal for Partner Details -->
+    <div id="partner-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script>
+        
+// Translations (simplified version)
+const translations = {
+    fr: {
+        nav_home: "Accueil", nav_about: "À Propos", nav_products: "Produits", nav_partners: "Partenaires", nav_contact: "Contact",
+        hero_title: "HBS Technology",
+        hero_tagline: "Votre partenaire de confiance en équipements et infrastructures de laboratoire",
+        hero_description: "Équipements scientifiques de laboratoire et solutions complètes d'infrastructure de laboratoire en Tunisie et en Libye.",
+        cta_button: "Contactez-nous pour un devis",
+        partners_title: "Nos Partenaires",
+        partners_subtitle: "Nous travaillons avec les leaders mondiaux de l'instrumentation scientifique",
+        products_title: "Produits par Secteur",
+        products_subtitle: "Découvrez notre gamme complète d'équipements scientifiques",
+        sector_agro: "Agroalimentaire", sector_agri: "Agriculture", sector_water: "Eau et environnement",
+        sector_pharma: "Pharmaceutique et cosmétique", sector_chemical: "Industrie Chimique",
+        about_title: "À Propos de HBS Technology", about_mission: "Notre Mission", about_vision: "Notre Vision", about_values: "Nos Valeurs",
+        value_quality: "Qualité", value_reliability: "Fiabilité", value_innovation: "Innovation", value_satisfaction: "Satisfaction client",
+        contact_title: "Contactez-nous",
+        contact_subtitle: "Nos experts sont à votre écoute pour vos projets de laboratoires",
+        contact_phone: "📞 Téléphone", contact_email: "✉️ Email", contact_address: "📍 Adresse",
+        footer_tagline: "Votre partenaire de confiance", footer_quick_links: "Liens rapides",
+        footer_sectors: "Secteurs", footer_contact: "Contact", footer_rights: "Tous droits réservés",
+        product_brand: "Marque", product_ref: "Référence",
+        about_mission_text: "Fournir des solutions de laboratoire fiables, innovantes et durables.",
+        about_vision_text: "Devenir un acteur de référence dans le domaine des laboratoires scientifiques.",
+        about_who: "Qui sommes-nous?", about_who_text: "HBS Technology est une entreprise spécialisée en équipements de laboratoire.",
+        about_commitment: "Nous nous engageons à fournir des produits de haute qualité."
+    },
+    en: {
+        nav_home: "Home", nav_about: "About", nav_products: "Products", nav_partners: "Partners", nav_contact: "Contact",
+        hero_title: "HBS Technology",
+        hero_tagline: "Your trusted partner in laboratory equipment and infrastructure",
+        hero_description: "Scientific laboratory equipment and complete infrastructure solutions in Tunisia and Libya.",
+        cta_button: "Contact us for a quote",
+        partners_title: "Our Partners",
+        partners_subtitle: "We work with world leaders in scientific instrumentation",
+        products_title: "Products by Sector",
+        products_subtitle: "Discover our complete range of scientific equipment",
+        sector_agro: "Agri-food", sector_agri: "Agriculture", sector_water: "Water & Environment",
+        sector_pharma: "Pharmaceutical & Cosmetic", sector_chemical: "Chemical Industry",
+        contact_title: "Contact Us", contact_phone: "📞 Phone", contact_email: "✉️ Email", contact_address: "📍 Address",
+        product_brand: "Brand", product_ref: "Reference"
+    },
+    ar: {
+        nav_home: "الرئيسية", nav_about: "من نحن", nav_products: "المنتجات", nav_partners: "الشركاء", nav_contact: "اتصل بنا",
+        hero_title: "HBS Technology",
+        hero_tagline: "شريكك الموثوق في المعدات والبنية التحتية للمختبرات",
+        cta_button: "اتصل بنا للحصول على عرض أسعار",
+        partners_title: "شركاؤنا",
+        products_title: "المنتجات حسب القطاع",
+        sector_agro: "الصناعات الغذائية", sector_agri: "الزراعة", sector_water: "المياه والبيئة",
+        sector_pharma: "الأدوية", sector_chemical: "الصناعة الكيميائية",
+        contact_title: "اتصل بنا", contact_phone: "📞 الهاتف", contact_email: "✉️ البريد", contact_address: "📍 العنوان",
+        product_brand: "العلامة", product_ref: "المرجع"
+    }
+};
+
+// Products data
+const productsData = {"Agroalimentaire": [{"name": "Rampe de filtration", "brand": "CHMLAB", "ref": "FR3X500MC"}, {"name": "Thermometre a fils", "brand": "Hanna", "ref": "HI93501"}, {"name": "Refractometre numérique", "brand": "Hanna", "ref": "HI96802"}, {"name": "PH-mètre portable professionnel spécial Aliments", "brand": "Hanna", "ref": "HI98162"}, {"name": "PH mètre de fromage professionnel", "brand": "Hanna", "ref": "HI98165"}, {"name": "Conductimètre et TDS/Salinité Mètre de Laboratoire edge®", "brand": "Hanna", "ref": "HI2003"}, {"name": "Appareil de mesure de paillasse pH/ORP avancé", "brand": "Hanna", "ref": "HI6221"}, {"name": "Photomètre et pH-mètre de paillasse multiparamètres", "brand": "Hanna", "ref": "HI83300"}, {"name": "Spectrophotomètre iris", "brand": "Hanna", "ref": "HI802"}, {"name": "Enregistreur de Température", "brand": "Hanna", "ref": "HI144"}, {"name": "Mini titrateur pour mesurer l'acidité titrable", "brand": "Hanna", "ref": "HI84529"}, {"name": "Titreur Volumétrique Karl Fischer", "brand": "Hanna", "ref": "HI933-02"}, {"name": "Turbidimètre portable", "brand": "Hanna", "ref": "HI83749"}, {"name": "Turbidimètre de paillasse", "brand": "Hanna", "ref": "HI88703"}, {"name": "Viscosimétre B-one", "brand": "Lamy Rheology", "ref": "N600000"}, {"name": "ANALYSEUR DE TEXTURES TX700", "brand": "Lamy Rheology", "ref": "N151010"}, {"name": "Incubateur réfrigéré Bio", "brand": "Froilabo", "ref": "BRE60"}, {"name": "Incubateur ventilé Bio Expert 120L", "brand": "Froilabo", "ref": "BE120"}, {"name": "Spectrophotomètre à double faisceau UV-vis", "brand": "Edinburgh Analytical", "ref": "DB30"}, {"name": "Absograph", "brand": "Bastak", "ref": "500"}, {"name": "Resistograph", "brand": "Bastak", "ref": "500"}, {"name": "Gluten cheq", "brand": "Bastak", "ref": "6100"}, {"name": "FN", "brand": "Bastak", "ref": "5100"}, {"name": "Broyeur", "brand": "Bastak", "ref": "1900s"}, {"name": "Echantillionneur", "brand": "Bastak", "ref": "10100"}, {"name": "Tamiseuse", "brand": "Bastak", "ref": "8000"}, {"name": "Moulin de farine", "brand": "Bastak", "ref": "4500s"}, {"name": "Balance analytique", "brand": "Radwag", "ref": "AS 220.R2 PLUS"}], "Agriculture": [{"name": "PH-mètre / EC / OD portable avec Bluetooth", "brand": "Hanna", "ref": "HI98494"}, {"name": "PH-mètre de mesure directe du sol", "brand": "Hanna", "ref": "HI99121"}, {"name": "Thermomètre forme de T", "brand": "Hanna", "ref": "HI145-20"}, {"name": "Trousse d'analyse chimique d'alcalinité", "brand": "Hanna", "ref": "HI3811"}, {"name": "Système De Dosage De Nutriments Groline", "brand": "Hanna", "ref": "HI981413-10"}, {"name": "Photomètre d'analyse des nutriments", "brand": "Hanna", "ref": "HI83325"}, {"name": "Testeur de pH/EC/TDS Combo Groline", "brand": "Hanna", "ref": "HI98131"}, {"name": "Multiparamètre de pH/EC/TDS étanche", "brand": "Hanna", "ref": "HI991301"}, {"name": "Trousse d'analyse chimique du sol NPK", "brand": "Hanna", "ref": "HI3896"}, {"name": "Photomètre portable de nitrate", "brand": "Hanna", "ref": "HI97728"}, {"name": "Analyseur Imacimus 10 Multi ION & pH-mètre", "brand": "NT sensors", "ref": "ISE Imacimus 10"}, {"name": "Neuromètre ISE Nitrite + pH", "brand": "NT sensors", "ref": "Imacimis 2 Nitrite"}, {"name": "Posemètre ISE potassium + pH", "brand": "NT sensors", "ref": "Imacimus 2 Potassium"}, {"name": "Analyseur Bromure + pH ISE", "brand": "NT sensors", "ref": "Imacimus 2 Bromure"}, {"name": "Analyseur de nutriments multi-ions en ligne", "brand": "NT sensors", "ref": "AMIC"}, {"name": "Balance de précision", "brand": "Radwag", "ref": "WLC 2/A2"}, {"name": "Spectromètres à fluorescence aux rayons X", "brand": "Thermo Scientific", "ref": "PERFORM’X"}], "Eau et environnement": [{"name": "Multiparamètre de pH / Rédox / EC / TDS / Salinité / OD / Pression / Température", "brand": "Hanna", "ref": "HI98194"}, {"name": "Photomètre et pH-mètre multiparamètres pour eau et eaux usées", "brand": "Hanna", "ref": "HI83399"}, {"name": "Turbidimètre de paillasse", "brand": "Hanna", "ref": "HI88703"}, {"name": "Thermoréacteur pour la digestion DCO", "brand": "Hanna", "ref": "HI839800"}, {"name": "Trousse d'analyse chimique pour qualité de l'eau", "brand": "Hanna", "ref": "HI3817"}, {"name": "pH mètre d'eau potable", "brand": "Hanna", "ref": "HI99192"}, {"name": "Oxymètre pour l'aquaculture", "brand": "Hanna", "ref": "HI9147"}, {"name": "Moniteur marin pH, salinité marine et température", "brand": "Hanna", "ref": "HI981520-02"}, {"name": "Photomètre d'aquaculture", "brand": "Hanna", "ref": "HI83303"}, {"name": "Mesureur ISE nitrate + pH", "brand": "NT sensors", "ref": "Imacimis 2 Nitrite"}, {"name": "Posemètre ISE magnésium + pH", "brand": "NT sensors", "ref": "Imacimis 2 magnésium"}], "Pharmaceutique et cosmétique": [{"name": "Viscosimétre B-one", "brand": "Lamy Rhéology", "ref": "N600000"}, {"name": "Viscosimétre First Plus", "brand": "Lamy Rhéology", "ref": "N700700"}, {"name": "Rhéométre RM200", "brand": "Lamy Rhéology", "ref": "N200000"}, {"name": "Turbidimètre de paillasse conforme à la norme EPA", "brand": "Hanna", "ref": "HI88703"}, {"name": "Titrateur potentiométrique automatique avancé", "brand": "Hanna", "ref": "HI932"}, {"name": "Titreur Coulométrique Karl Fischer", "brand": "Hanna", "ref": "HI933-02"}, {"name": "Photomètre pour le traitement des eaux usées", "brand": "Hanna", "ref": "HI83314-02"}, {"name": "HI6000 avec 2 modules pH/Rédox/ISE", "brand": "Hanna", "ref": "HI6222"}, {"name": "Conductimètre de laboratoire, edge EC", "brand": "Hanna", "ref": "HI2003-02"}, {"name": "Congélateurs à ultra-basse température -86°C", "brand": "Froilabo", "ref": "BMTRU34086"}, {"name": "Réfrigérateur et congélateur combinés", "brand": "Froilabo", "ref": "COMB35025"}, {"name": "Incubateur naturelle Bio", "brand": "Froilabo", "ref": "BSP 125"}, {"name": "Etuve à convection forcée", "brand": "Froilabo", "ref": "AE120"}, {"name": "Chambre climatique 330L", "brand": "Froilabo", "ref": "SP260BVEHF1"}, {"name": "Spectromètre FTIR", "brand": "Edinburgh Analytical", "ref": "IA30"}, {"name": "Spectrophotomètre à double faisceau UV-vis", "brand": "Edinburgh Analytical", "ref": "DB30"}, {"name": "dessicateur halogéne", "brand": "Radwag", "ref": "MA 210.R.WH"}, {"name": "AW meter", "brand": "Novasina", "ref": "LabMaster-aw neo"}, {"name": "Système de test du taux de transmission de la vapeur d eau", "brand": "Labthink", "ref": "C390H"}], "Industrie Chimique": [{"name": "Analyseur automatique de lithium", "brand": "NT sensors", "ref": "Imacimus 2"}, {"name": "Analyseur ISE Fluorure + pH-mètre", "brand": "NT sensors", "ref": "Imacimus 2"}, {"name": "Analyseur automatique de chlorure", "brand": "NT sensors", "ref": "Imacimus 2"}, {"name": "Sonde de thermocouple de type K", "brand": "Hanna", "ref": "HI766E2"}, {"name": "PH-mètre / EC / OD portable", "brand": "Hanna", "ref": "HI98494"}, {"name": "Climatiseur thermique - 72°C à + 250°C", "brand": "Froilabo", "ref": "Dragon"}, {"name": "Spectrophotomètre à double faisceau UV-vis", "brand": "Edinburgh Analytical", "ref": "DB30"}, {"name": "Spectromètre à fluorescence", "brand": "Edinburgh Analytical", "ref": "FE30"}, {"name": "Spectromètre FTIR", "brand": "Edinburgh Analytical", "ref": "IA30"}, {"name": "Titreur Karl Fisher", "brand": "Hanna", "ref": ""}, {"name": "HotTackTester", "brand": "Labthink", "ref": "C632m"}, {"name": "Testeur d épaisseur", "brand": "Labthink", "ref": "C640"}, {"name": "Système de test du taux de transmission de l oxygène", "brand": "Labthink", "ref": "C206H"}, {"name": "Testeur de traction automatique", "brand": "Labthink", "ref": "C610H"}, {"name": "Spectromètres à fluorescence aux rayons X", "brand": "Thermo Scientific", "ref": "PERFORM’X"}, {"name": "Spectromètres à fluorescence aux rayons X", "brand": "Thermo Scientific", "ref": "X900"}, {"name": "Spectromètres à fluorescence aux rayons X", "brand": "Thermo Scientific", "ref": "OPTIM'X"}]};
+
+// Partner logos (using emojis and symbols)
+const partnerLogos = {
+    "Bastak Instruments": "🌾",
+    "Lamy Rheology": "💧",
+    "Hanna Instruments": "⚗️",
+    "Thermo Scientific": "🔬",
+    "Froilabo": "❄️",
+    "Edinburgh Instruments": "📊",
+    "NT Sensors": "📡",
+    "P&M Promixer": "🔄",
+    "Aqualabo": "💦",
+    "Memmert": "🌡️"
+};
+
+const partnersData = [
+    {name: "Bastak Instruments", website: "https://www.bastak.com.tr/", description: "Fabricant turc leader dans les instruments d'analyse de céréales et de farine."},
+    {name: "Lamy Rheology", website: "https://www.lamyrheology.com/", description: "Spécialisé dans les instruments de mesure rhéologique et d'analyse de texture."},
+    {name: "Hanna Instruments", website: "https://www.hannainst.com/", description: "Leader mondial dans la fabrication d'instruments de mesure et d'analyse."},
+    {name: "Thermo Scientific", website: "https://www.thermofisher.com/", description: "L'un des plus grands fournisseurs mondiaux d'équipements scientifiques."},
+    {name: "Froilabo", website: "https://www.froilabo.com/", description: "Fabricant français spécialisé dans les équipements de laboratoire réfrigérés."},
+    {name: "Edinburgh Instruments", website: "https://www.edinst.com/", description: "Fabricant de spectromètres UV-Vis et de fluorescence de haute performance."},
+    {name: "NT Sensors", website: "https://www.ntsensors.com/", description: "Spécialisé dans les analyseurs multi-ions et électrodes sélectives."},
+    {name: "P&M Promixer", website: "http://www.promixer.ch/", description: "Fabricant d'agitateurs de laboratoire et mélangeurs industriels."},
+    {name: "Aqualabo", website: "https://www.aqualabo.fr/", description: "Fabricant français spécialisé dans les sondes et analyseurs pour la qualité de l'eau."},
+    {name: "Memmert", website: "https://www.memmert.com/", description: "Fabricant allemand réputé pour ses étuves, incubateurs et chambres climatiques."}
+];
+
+let currentLang = 'fr';
+
+// SVG Icons for products
+function getProductSVG(productName) {
+    const name = productName.toLowerCase();
+    const color1 = '#0066CC';
+    const color2 = '#00B894';
+    
+    if (name.includes('ph') || name.includes('mètre')) {
+        return `<svg width="120" height="120" viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" fill="${color1}" opacity="0.2"/><path d="M40 40 L80 40 L80 80 L40 80 Z" fill="${color1}"/><circle cx="60" cy="60" r="15" fill="${color2}"/></svg>`;
+    }
+    if (name.includes('spectro')) {
+        return `<svg width="120" height="120" viewBox="0 0 120 120"><rect x="30" y="30" width="60" height="60" fill="${color1}" opacity="0.2"/><path d="M40 80 L60 40 L80 80" stroke="${color2}" stroke-width="4" fill="none"/></svg>`;
+    }
+    if (name.includes('balance')) {
+        return `<svg width="120" height="120" viewBox="0 0 120 120"><rect x="55" y="20" width="10" height="40" fill="${color1}"/><circle cx="40" cy="70" r="15" fill="${color2}" opacity="0.7"/><circle cx="80" cy="70" r="15" fill="${color2}" opacity="0.7"/></svg>`;
+    }
+    if (name.includes('incubat') || name.includes('étuve')) {
+        return `<svg width="120" height="120" viewBox="0 0 120 120"><rect x="30" y="30" width="60" height="60" rx="10" fill="${color1}" opacity="0.2"/><circle cx="60" cy="60" r="20" fill="${color2}"/><path d="M60 45 L60 75 M45 60 L75 60" stroke="white" stroke-width="3"/></svg>`;
+    }
+    if (name.includes('visco')) {
+        return `<svg width="120" height="120" viewBox="0 0 120 120"><path d="M50 30 Q60 50 50 70 Q40 90 50 110" stroke="${color1}" stroke-width="4" fill="none"/><path d="M70 30 Q60 50 70 70 Q80 90 70 110" stroke="${color2}" stroke-width="4" fill="none"/></svg>`;
+    }
+    if (name.includes('turbid')) {
+        return `<svg width="120" height="120" viewBox="0 0 120 120"><circle cx="60" cy="60" r="40" fill="${color1}" opacity="0.3"/><circle cx="60" cy="60" r="25" fill="${color2}" opacity="0.5"/><circle cx="60" cy="60" r="10" fill="${color1}"/></svg>`;
+    }
+    // Default icon
+    return `<svg width="120" height="120" viewBox="0 0 120 120"><circle cx="60" cy="60" r="45" fill="${color1}" opacity="0.2"/><rect x="40" y="40" width="40" height="40" rx="5" fill="${color2}"/></svg>`;
+}
+
+function initParticles() {
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+        container.appendChild(particle);
+    }
+}
+
+function changeLanguage(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    document.body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    document.querySelectorAll('[data-translate]').forEach(elem => {
+        const key = elem.getAttribute('data-translate');
+        if (translations[lang][key]) elem.textContent = translations[lang][key];
+    });
+}
+
+function showSector(sector) {
+    document.querySelectorAll('.sector-tab').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.sector-content').forEach(content => content.classList.remove('active'));
+    event.target.closest('.sector-tab').classList.add('active');
+    document.getElementById(sector).classList.add('active');
+}
+
+function createProductCard(product) {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    const svg = getProductSVG(product.name);
+    card.innerHTML = `
+        <div class="product-image">${svg}</div>
+        <div class="product-details">
+            <div class="product-name">${product.name}</div>
+            <div class="product-brand">${translations[currentLang].product_brand}: ${product.brand}</div>
+            <div class="product-ref">${translations[currentLang].product_ref}: ${product.ref}</div>
+        </div>
+    `;
+    return card;
+}
+
+function initProducts() {
+    ['Agroalimentaire', 'Agriculture', 'Eau et environnement', 'Pharmaceutique et cosmétique', 'Industrie Chimique'].forEach((sector, idx) => {
+        const gridIds = ['products-agro', 'products-agri', 'products-eau', 'products-pharma', 'products-chimie'];
+        const grid = document.getElementById(gridIds[idx]);
+        if (productsData[sector]) {
+            productsData[sector].forEach(product => {
+                grid.appendChild(createProductCard(product));
+            });
+        }
+    });
+}
+
+function initPartners() {
+    const grid = document.getElementById('partners-grid');
+    partnersData.forEach(partner => {
+        const card = document.createElement('div');
+        card.className = 'partner-card';
+        card.onclick = () => showPartnerDetails(partner);
+        card.innerHTML = `
+            <div class="partner-logo-container">${partnerLogos[partner.name] || '🏢'}</div>
+            <div class="partner-name">${partner.name}</div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+function showPartnerDetails(partner) {
+    document.getElementById('modal-body').innerHTML = `
+        <h2>${partner.name}</h2>
+        <p style="line-height:1.8;color:#555;margin:1.5rem 0">${partner.description}</p>
+        <p><a href="${partner.website}" target="_blank" style="color:var(--primary-color);font-weight:600">Visiter le site officiel →</a></p>
+    `;
+    document.getElementById('partner-modal').style.display = 'block';
+}
+
+function closeModal() {
+    document.getElementById('partner-modal').style.display = 'none';
+}
+
+window.onclick = e => {
+    if (e.target == document.getElementById('partner-modal')) closeModal();
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) target.scrollIntoView({behavior: 'smooth', block: 'start'});
+        });
+    });
+});
+
+window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    const scroll = window.pageYOffset;
+    nav.style.padding = scroll > 100 ? '0.5rem 0' : '1rem 0';
+    nav.style.boxShadow = scroll > 100 ? '0 6px 30px rgba(0,0,0,0.15)' : '0 4px 20px rgba(0,0,0,0.1)';
+});
+
+initParticles();
+initProducts();
+initPartners();
+
+    </script>
+</body>
+</html>
